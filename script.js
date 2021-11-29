@@ -5,3 +5,13 @@ document.getElementById("recherche").addEventListener("keypress", (e) => {
     }
 });
 
+var coups=2
+var fonct = function(e){
+    var val=document.getElementById("pouf")
+    val.firstChild.nextSibling.className= ("logo"+coups);
+    coups++;
+}
+
+document.getElementById("pouf").addEventListener("click", fonct);
+
+

@@ -39,19 +39,45 @@ a:hover {color:white;}
 	background-color:#1E1E1E;
 }
 
-a>x:hover{
-	background-color:#1E1E1E;
-}
-
 .logo{
 	background-image:url("logo/berd.png") ;
 	background-size:cover;
 	width:2.4em;
 	height:2.4em;
 }
+
+.logo2{
+	background-image:url("logo/berd.png") ;
+	background-size:cover;
+	width:2.4em;
+	height:2.4em;
+}
+
+.logo3{
+	background-image:url("logo/berd.png") ;
+	background-size:cover;
+	width:2.4em;
+	height:2.4em;
+}
+
 .logo:hover{
 	background-image:url("logo/gnome.png") ;
 }
+
+.logo2:hover{
+	background-image:url("logo/gnome2.png") ;
+}
+
+.logo3:hover{
+	background-image:url("logo/gnome3.png") ;
+}
+
+
+
+a>x:hover{
+	background-color:#1E1E1E;
+}
+
 footer{
 	background-color: #007ACC;
 	position:fixed;
