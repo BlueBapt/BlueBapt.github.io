@@ -39,13 +39,7 @@ body{
 </style>
 
 <script>
-    function download(filename, textInput) {
-          var element = document.createElement('a');
-          element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
-          element.setAttribute('download', filename);
-          element.click();
-    }
-    const downloadBlob = (fileName, blob) => {
+    function downloadBlob(fileName, blob) {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.target = '_blank';
