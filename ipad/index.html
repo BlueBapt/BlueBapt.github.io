@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,11 @@
 </head>
 <body>
     <div class="b">
-        <button id="download">Bloc note</button>
+        <button id="save">Sauvegarder</button>
+        <label for="files">Fichier :</label>
+        <select name="files" id="files">
+        </select>
+        <button id="load">Charger</button>
     </div>
     <hr>
     <textarea id="content">Ecrire ici</textarea>
@@ -39,25 +43,65 @@ body{
 </style>
 
 <script>
-    function downloadBlob(fileName, blob) {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.target = '_blank';
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
+
+    const sto = localStorage;
+
+    let file_names = sto.getItem("notes")
+    if(file_names==null){
+        sto.setItem("notes",JSON.stringify([]))
+    }else{
+        file_names=JSON.parse(file_names)
+    }
+
+
+    if(file_names != null){
+        let select = document.getElementById("files")
+        for(let i=0;i<file_names.length;i++){
+            let option = document.createElement("option")
+            option.setAttribute("value",file_names[i])
+            option.innerText=file_names[i]
+            select.appendChild(option)
+        }
+    }
+
+    function save(){
+        var name = prompt("Quel nom?");
+        if(name==null){
+            name="export";
+        }
+        if(!file_names.includes(name)){
+            file_names.push(name)
+            sto.setItem("notes",JSON.stringify(file_names))
+            let select = document.getElementById("files")
+            select.innerHTML=""
+            for(let i=0;i<file_names.length;i++){
+                let option = document.createElement("option")
+                option.setAttribute("value",file_names[i])
+                option.innerText=file_names[i]
+                select.appendChild(option)
+            }
+        }
+        sto.setItem("file-"+name,document.getElementById("content").value.trim())
+    }
+
+    function getSelectedText(elementId) {
+        var elt = document.getElementById(elementId);
+    
+        if (elt.selectedIndex == -1)
+            return null;
+    
+        return elt.options[elt.selectedIndex].text;
     }
       
-    document.getElementById("download")
+    document.getElementById("save")
           .addEventListener("click", function () {
-                var text = document.getElementById("content").value.trim();
-                var name = prompt("Quel nom?");
-                if(name==null){
-                    name="export";
-                }
-                name+=".md";
-                var blob = new Blob([text], { type: 'text/plain' });
-                downloadBlob(name, blob)
+                save()
+          }, false);
+
+    document.getElementById("load")
+          .addEventListener("click", function () {
+                let text = getSelectedText('files')
+                document.getElementById("content").value=sto.getItem("file-"+text)
           }, false);
 </script>
 
