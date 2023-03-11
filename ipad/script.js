@@ -49,9 +49,7 @@ function getSelectedText(elementId) {
   
 document.getElementById("save")
       .addEventListener("click", function () {
-            alert("avant")
             save()
-            alert("apres")
       }, false);
 
 document.getElementById("load")
