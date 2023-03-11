@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="b">
-        <button id="save">Sauvegarder</button>
-        <label for="files">Fichier :</label>
-        <select name="files" id="files">
+        <button class="btns" id="save">Sauvegarder</button>
+        <label class="btns" for="files">Fichier :</label>
+        <select class="btns" name="files" id="files">
         </select>
-        <button id="load">Charger</button>
+        <button class="btns" id="load">Charger</button>
     </div>
     <hr>
     <textarea id="content">Ecrire ici</textarea>
@@ -21,8 +21,9 @@
 <style>
 .b{
     margin: 0.5em;
+    font-size:x-large;
 }
-#download{
+.btns{
     font-size:x-large;
 }
 textarea{
@@ -46,7 +47,7 @@ body{
 
     const sto = localStorage;
 
-    let file_names = sto.getItem("notes")
+    var file_names = sto.getItem("notes")
     if(file_names==null){
         sto.setItem("notes",JSON.stringify([]))
     }else{
@@ -55,9 +56,9 @@ body{
 
 
     if(file_names != null){
-        let select = document.getElementById("files")
-        for(let i=0;i<file_names.length;i++){
-            let option = document.createElement("option")
+        var select = document.getElementById("files")
+        for(var i=0;i<file_names.length;i++){
+            var option = document.createElement("option")
             option.setAttribute("value",file_names[i])
             option.innerText=file_names[i]
             select.appendChild(option)
@@ -72,10 +73,10 @@ body{
         if(!file_names.includes(name)){
             file_names.push(name)
             sto.setItem("notes",JSON.stringify(file_names))
-            let select = document.getElementById("files")
+            var select = document.getElementById("files")
             select.innerHTML=""
-            for(let i=0;i<file_names.length;i++){
-                let option = document.createElement("option")
+            for(var i=0;i<file_names.length;i++){
+                var option = document.createElement("option")
                 option.setAttribute("value",file_names[i])
                 option.innerText=file_names[i]
                 select.appendChild(option)
@@ -95,12 +96,14 @@ body{
       
     document.getElementById("save")
           .addEventListener("click", function () {
+                alert("avant")
                 save()
+                alert("arpes")
           }, false);
 
     document.getElementById("load")
           .addEventListener("click", function () {
-                let text = getSelectedText('files')
+                var text = getSelectedText('files')
                 document.getElementById("content").value=sto.getItem("file-"+text)
           }, false);
 </script>
